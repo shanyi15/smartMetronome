@@ -1,0 +1,6 @@
+bin/
+lib/python3.8/site-packages/
+Archive/
+*.pyc
+__pycache__/
+static/node_modules/

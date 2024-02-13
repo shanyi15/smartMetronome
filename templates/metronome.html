@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/styles/metronome.css">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='icon/favicon.ico') }}">
+    <title>Smart Metronome</title>
+    
+</head>
+<body class='whole'>
+    <h1>🕰 Smart Metronome 🕰</h1>
+    <header>
+      <!-- {{nav.top.render()}} -->
+    </header>
+
+    <div class="middle">
+        <div class="metronome">
+            
+            <span class="title">Tempo</span>
+            <div class="bpm-display">
+                <span class="tempo">140</span>
+                <span class="bpm">BPM</span>
+            </div>
+            <div class="tempo-settings">
+                <div class="adjust-tempo-btn decrease-tempo" hidden="true">-</div>
+                <input type="range" min="20" max="280" step="1" class="slider">
+                <div class="adjust-tempo-btn increase-tempo" hidden="true">+</div>
+            </div>
+            <span class="title">Beats per measure</span>
+            <div class="measures">
+                <div class="subtract-beats stepper">-</div>
+                <div class="measure-count">4</div>
+                <div class="add-beats stepper">+</div>
+            </div>
+            <span class="title">Select sound</span>
+            <div class="sound">
+              <select 
+                  value={sound}
+                  onChange={this.handleSoundChange}
+                  class="selector"
+              >
+                  <option value="click2">drumsticks</option>
+                  <option value="click3">low woodblock</option>
+                  <option value="click4">high bongo</option>
+              </select>                
+            </div>
+            <div class="start-stop">START</div>
+        </div>
+        <!-- This is for <div class="metronome"></div>     -->
+
+        <div class="recorder">
+            <br>
+            <!-- Recorder -->
+            <div id="controls" hidden="true">
+              <button id="recordButton">Record</button>
+              <button id="pauseButton" disabled>Pause</button>
+              <button id="stopButton" disabled>Stop</button>
+            </div>
+            <div id="formats">Format: press "start" button to see sample rate</div>
+            <p><strong>Recordings:</strong></p>
+            <ol id="recordingsList" action='api/upload' method="post"></ol>
+
+            <!-- wavesurfer.js -->
+            <script src="https://unpkg.com/wavesurfer.js@6.4.0/dist/wavesurfer.js"></script>
+            <script src="https://unpkg.com/wavesurfer.js@6.4.0/dist/plugin/wavesurfer.timeline.js"></script>
+            <script src="https://unpkg.com/wavesurfer.js@6.4.0/dist/plugin/wavesurfer.cursor.js"></script>
+            <!-- <script type="module" src="../static/node_modules/wavesurfer.js/dist/wavesurfer.js"></script>
+            <script type="module" src="../static/node_modules/wavesurfer.js/src/plugin/cursor/index.js"></script>
+            <script type="module" src="../static/node_modules/wavesurfer.js/src/plugin/timeline/index.js"></script> -->
+
+    
+
+
+            <div id="waveform"></div>
+
+            <!-- This 2 button should be hidden -->
+            <a href="javascript:" id="btnPlay" role="button">Play</a>
+            <a href="javascript:" id="btnPause" role="button">Pause</a>
+            <div id="wave-timeline"></div>
+
+            <script src="../static/js/app.js" method="post"></script>
+            <script src="../static/js/metro.js" type="module"></script>  
+            <script src="../static/js/recorder.js"></script>
+        </div>
+        <!-- This is the end of div recorder -->
+
+    </div>
+    <!-- This is for <div class="middle"></div> -->
+
+  <!-- This is the start of div analysis -->    
+    <div class="analysis">
+      <div id="audioResultContainer">
+        <br>
+        <h3>Analysis Report</h3>
+        <p class="plain">The threshold of time difference is:</p>
+        <p id="thres"></p>
+        <p class="plain">Under this standard, the accurate beats as a percentage of all beats:</p>
+        <!-- <p id="beatTimes">{{ beat_times }}</p> -->
+        <p id="accRate"></p>
+        <br>
+        <!-- <p class="plain">The estimated tempo is:</p>
+        <p id="tempo">{{ tempo }}</p> -->
+      </div>
+
+      <div id="echarts-container" style="width: 100%;height:200px;"></div>
+      <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5.4.1/dist/echarts.min.js"></script>
+  
+      <div id="echarts-diff" style="width: 100%;height:200px;"></div>
+    </div>
+  <!-- This is the end of div analysis -->
+    
+    <footer>
+      <p id="footerText">©2024 Smart Metronome. All Rights Reserved. Website Made by Yi Shan.</p>
+    </footer>
+
+
+
+</body>
+</html>

@@ -1,0 +1,164 @@
+body {
+  background-color: #d8f0f2;
+  font-family: "Trebuchet MS", Helvetica, sans-serif;
+  display:flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+h1 {
+  text-align: center;
+}
+
+.middle {
+  display: flex;
+  flex: 1;
+  align-items: flex-start;
+  font-size: 18px;
+  flex-direction: row;
+}
+
+/* metronome */
+.metronome {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  order: -1;
+  border: 3px dotted #87ceeb;
+  margin: 25px;
+  padding: 25px;
+
+}
+
+/* recorder */
+.recorder {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  border: 3px dotted #87ceeb;
+  margin: 25px;
+  padding: 25px;
+}
+
+/* analysis */
+.analysis {
+  display: flex;
+  flex-direction: column;
+  flex:1;
+  border: 3px dotted #87ceeb;
+  margin: 25px;
+  padding: 25px;
+}
+
+/* START of elements in metronome */
+.title {
+  text-align: center;
+  font-size: 20px;
+  line-height:50px;
+}
+
+/* tempo and "BPM" */
+.bpm-display {
+  width: 100%;
+  text-align: center;
+  color: #55696c;
+  font-weight: bold;
+}
+
+/* tempo num */
+.bpm-display .tempo {
+  font-size: 16px;
+}
+
+.tempo-settings {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex: 1;
+  /* margin: 0 auto; */
+}
+
+/* Start/Stop Button */
+.start-stop {
+  width: 50px;
+  height: 30px;
+  font-size: 0.7em;
+  text-align: center;
+  background: #87ceeb;
+  border-radius: 20%;
+  color: #fff;
+  line-height: 30px;
+  margin: 0 auto;
+  cursor: pointer;
+}
+
+/* beats per measure */
+.measures {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+/* beats per measure +- */
+.measures .stepper {
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  margin: 0 5px;
+  cursor: pointer;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  input[type='range'] {
+    overflow: hidden;
+    width: 70%;
+    /* -webkit-appearance: none; */
+    appearance: none;
+    background-color:#b0e0e6;
+  }
+  
+  input[type='range']::-webkit-slider-runnable-track {
+    height: 10px;
+    width: 100%;
+    -webkit-appearance: none;
+    color: #b0e0e6;
+    margin-top: -1px;
+  }
+  
+  input[type='range']::-webkit-slider-thumb {
+    width: 10px;
+    -webkit-appearance: none;
+    height: 10px;
+    /* cursor: ew-resize; */
+    background: #4798b3;
+    box-shadow: -80px 0 0 80px #b0e0e6;
+  }
+
+}
+
+/* metronome sound selector */
+.sound {
+  line-height: 50px;
+  margin: 0 auto;
+  
+}
+
+/* END of elements in metronome */
+
+#echarts-container {
+  display: flex;
+}
+
+footer {
+  flex: 1;
+  text-align: center;
+  list-style-type: none;
+  color: whitesmoke;
+  background-color: #55696c;
+  opacity: 0.5;
+  font-size: 14px;
+}
+
+#footerText {
+  text-align: center;
+}
