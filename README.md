@@ -9,9 +9,18 @@ It's from Yi Shan's thesis project at NYU Music Tech Program.
 pip install virtualenv
 ```
 
+* Create new virtualenv
+```
+virtualenv venv
+```
+
 * Activate env, run the following command
 ```
-source ./bin/activate
+//MacOS
+source venv/bin/activate
+
+//Windows
+venv\Scripts\activate
 ```
 
 * Install Python libs
@@ -22,7 +31,6 @@ pip install -r requirement.txt
 * Run
 ```
 python app.py
-# Or, python3 app.py, depends on which python you are using.
 ```
 
 If you start the server successfully, you will see the address in terminal.
