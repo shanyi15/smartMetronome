@@ -3,7 +3,7 @@
 This demo uses flask, librosa, madmom, HTML/CSS/JavaScript to create a smart metronome app, targeting for musical instrument players who would like to record their performance and get a report with beat analysis.
 It's from Yi Shan's thesis project at NYU Music Tech Program.
 
-![Example](images/example.gif)
+![Example](images/present.gif)
 
 ## How to run
 Two ways to create a clean environment are provided, you can choose one of them. 
