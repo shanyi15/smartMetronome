@@ -1,8 +1,7 @@
-bin/
-lib/python3.8/site-packages/
-Archive/
+venv/
 *.pyc
 __pycache__/
 static/node_modules/
 .DS_Store
 pyvenv.cfg
+test.wav

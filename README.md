@@ -7,7 +7,11 @@ It's from Yi Shan's thesis project at NYU Music Tech Program.
 
 ## How to run
 Two ways to create a clean environment are provided, you can choose one of them. 
-Based on my experiment experience, `conda` is recommended.
+Based on the experience during test, if you already have `conda` installed, `conda` is recommended. If not, `virtualenv` is better.
+
+Suggested Python Version: 3.8. Newer Version may bring lib conflicts.
+
+Virtualenv method has been tested on Windows 11. Conda method has been tested on MacOS Sonoma.
 
 ### Conda
 ```
