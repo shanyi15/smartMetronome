@@ -56,8 +56,10 @@ addBeats.addEventListener('click', () => {
 startStopBtn.addEventListener('click', () => {
     count = 0;
     if (!isRunning) {
-        metronome.start();
         startRecording();
+        setTimeout(() => {
+            metronome.start();
+        }, 1000);       
         isRunning = true;
         startStopBtn.textContent = 'STOP';
     } else {

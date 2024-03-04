@@ -5,29 +5,15 @@ var rec;
 var input;
 var audioContext;
 
-// var recStartTime;
-// var recStopTime;
-// var cliStartTime;
-// var cliStopTime;
-// var recLength;
 var metroBeatAbsTime = [];
-// var metroTimeArray = [];
-// var predictTimeArray;
-// var testStartTime;
 var interval_global;
 
 var absRecStartTime;
 var absRecBufTimeArray = [];
+var absRecLastBuffer;
 var relTimerArray = [];
 var predictedRecTimeArray = [];
 var startClickTime;
-var absRecLastBuffer;
-
-// For performance test
-// var startTime;
-// var stopTime;
-// var recordingStartTime;
-// var recordingStopTime;
 
 var constraints = { audio: {
   echoCancellation: false,
@@ -87,7 +73,7 @@ function stopRecording() {
 	pauseButton.disabled = true;
 
 	//reset button just in case the recording is stopped while paused
-pauseButton.innerHTML="Pause";
+  pauseButton.innerHTML="Pause";
 
 	absRecBufTimeArray = rec.stop();
     absRecStartTime = absRecBufTimeArray[0];
@@ -109,7 +95,6 @@ pauseButton.innerHTML="Pause";
 function handleArray(relTimerArray, predictedRecTimeArray){
 
     function findCombo (metroTimeArray, predictTimeArray){
-      // console.log('metroTimeArray: ', metroTimeArray);
       for (i = 0; i < metroTimeArray.length;i++) {
         let interval = 60000 / interval_global;
         left = metroTimeArray[i] - interval_global * 0.25;
@@ -126,13 +111,8 @@ function handleArray(relTimerArray, predictedRecTimeArray){
 
     function cutArrays (metroTimeArray, predictTimeArray) {
       const [metroIndexLeft, predictIndexLeft] = findCombo(metroTimeArray, predictTimeArray);
-      // console.log("metroIndexLeft:", metroIndexLeft);
-      // console.log("predictIndexLeft:", predictIndexLeft);
       metroArrayCom = metroTimeArray.slice(metroIndexLeft);
-      // console.log("predictTimeArray[0] before slice:", predictTimeArray[0])
       predictArrayCom = predictTimeArray.slice(predictIndexLeft);
-      // console.log("predictTimeArray[0] after slice:", predictTimeArray[0])
-      // console.log("predictArrayCom[0] after slice:", predictArrayCom[0])
       a = metroArrayCom.length;
       b = predictArrayCom.length;
       console.log("predict-metro", b-a);
@@ -177,16 +157,6 @@ function handleArray(relTimerArray, predictedRecTimeArray){
         return [arrayDiff, rmvIgnored];
     }
 
-    // function calFasterSlower(rmvIgnored) {
-    //     fasterArray = rmvIgnored.filter(function(num){
-    //         return num < 0;
-    //     })
-    //     slowerArray = rmvIgnored.filter(function(num){
-    //         return num > 0;
-    //     })
-    //     return [fasterArray, slowerArray];
-    // };
-
     function createFasterSlower(arrayDiff, predictedRecTimeArray, thresIndex=0.02) {
         var fasterSlower = combineArrays(arrayDiff, predictedRecTimeArray);
 
@@ -211,7 +181,7 @@ function handleArray(relTimerArray, predictedRecTimeArray){
             var accuRateValue = 1 - rmvUnderThres.length / arrayDiff.length;
             // Num of good beats / Num of all beats
             var accRate = document.getElementById("accRate");
-            accRate.innerHTML = accuRateValue.toFixed(4) * 100 + '%';
+            accRate.innerHTML = ( accuRateValue * 100 ).toFixed(1)  + '%';
         
             // Ave(The time length of diffs / Interval).
             diffRate = rmvUnderThres.map(item => {return item[0] / interval_global})
@@ -262,9 +232,9 @@ function handleArray(relTimerArray, predictedRecTimeArray){
           slowerTime = [];
           sortDiffFaster = [];
           sortDiffSlower = [];
-          AccuRate = 1 - rmvUnderThres.length / arrayDiff.length;
+          accuRateValue = 1 - rmvUnderThres.length / arrayDiff.length;
           var accRate = document.getElementById("accRate");
-          accRate.innerHTML = AccuRate.toFixed(4) * 100 + '%. '+ 'Congratulations!'; 
+          accRate.innerHTML = ( accuRateValue * 100 ).toFixed(1) + '%. '+ 'Congratulations!'; 
         }
           return [fasterTime, slowerTime, sortDiffFaster, sortDiffSlower];
     }
@@ -413,11 +383,11 @@ function addWavesurfer(url) {
       })
 
       relTimerArray = relTimerArray.map((value, index) => {
-        if ( index !== 0) {
+        // if ( index !== 0) {
           return value + ( absRecStartTime - startClickTime) / 1000;
-        } else {
-          return value;
-        }
+        // } else {
+        //   return value;
+        // }
       });
 
       console.log('relTimerArray: ', relTimerArray);

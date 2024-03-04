@@ -262,6 +262,7 @@
       _createClass(Recorder, [{
           key: 'record',
           value: function record() {
+            console.log('key start in recorder.js: ', Date.now());
               this.recording = true;
           }
       }, {

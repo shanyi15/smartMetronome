@@ -37,8 +37,8 @@ def api_testforflask():
         tempo, beat_frames = librosa.beat.beat_track(y=y, sr=sr)
         activation_tempo = madmom.features.beats.RNNBeatProcessor()(os.path.join(UPLOAD_FOLDER, fn))
 
-        proc_tempo = madmom.features.tempo.TempoEstimationProcessor(fps=100, max_bpm= int(bpm * 1.3), min_bpm=int(bpm * 0.85))
-        proc = madmom.features.beats.BeatTrackingProcessor(fps=100, look_aside=0.8, tempo_estimator=proc_tempo)
+        proc_tempo = madmom.features.tempo.TempoEstimationProcessor(fps=100, max_bpm= int(bpm * 1.1), min_bpm=int(bpm * 0.95))
+        proc = madmom.features.beats.BeatTrackingProcessor(fps=100, look_aside=0.9, tempo_estimator=proc_tempo)
         act = madmom.features.beats.RNNBeatProcessor()(os.path.join(UPLOAD_FOLDER, fn))
         beat_times = proc(act)
 

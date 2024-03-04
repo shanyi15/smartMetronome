@@ -5,3 +5,4 @@ static/node_modules/
 .DS_Store
 pyvenv.cfg
 test.wav
+static/js/app_deprecated.js
