@@ -55,14 +55,14 @@ addBeats.addEventListener('click', () => {
 
 startStopBtn.addEventListener('click', () => {
     count = 0;
-    if (!isRunning) { 
-        startRecording();
+    if (!isRunning) {
         metronome.start();
+        startRecording();
         isRunning = true;
         startStopBtn.textContent = 'STOP';
     } else {
-        metronome.stop(); 
         stopRecording();        
+        metronome.stop(); 
         isRunning = false;
         startStopBtn.textContent = 'START';
     }
@@ -90,6 +90,7 @@ function playClick() {
     if (count === 0) {
         click1.play();
         click1.currentTime = 0;
+        console.log(`This is downbeat, the time is ${Date.now()}`);
     } else {
       if (sound === 'click2') {
         click2.play();

@@ -37,10 +37,14 @@ def api_testforflask():
         tempo, beat_frames = librosa.beat.beat_track(y=y, sr=sr)
         activation_tempo = madmom.features.beats.RNNBeatProcessor()(os.path.join(UPLOAD_FOLDER, fn))
 
-        proc_tempo = madmom.features.tempo.TempoEstimationProcessor(fps=100, max_bpm= int(bpm * 1.2), min_bpm=int(bpm * 0.8))
+        proc_tempo = madmom.features.tempo.TempoEstimationProcessor(fps=100, max_bpm= int(bpm * 1.3), min_bpm=int(bpm * 0.85))
         proc = madmom.features.beats.BeatTrackingProcessor(fps=100, look_aside=0.8, tempo_estimator=proc_tempo)
         act = madmom.features.beats.RNNBeatProcessor()(os.path.join(UPLOAD_FOLDER, fn))
         beat_times = proc(act)
+
+        # proc = madmom.features.beats.RNNBeatProcessor()
+        # beat_times = proc(os.path.join(UPLOAD_FOLDER, fn))
+        # print(beat_times)
 
         return jsonify(beat_times.tolist())
 
@@ -49,4 +53,4 @@ def index():
     return render_template('metronome.html')
 
 if __name__ == "__main__":
-    app.run(debug=True, threaded=True, host='127.0.0.1', port=8080)
+    app.run(debug=True, threaded=True, host='127.0.0.1', port=8081)

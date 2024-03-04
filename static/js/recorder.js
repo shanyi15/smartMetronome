@@ -43,14 +43,16 @@
           _classCallCheck(this, Recorder);
   
           this.config = {
-              bufferLen: 4096,
+              bufferLen: 1024,
               numChannels: 1,
               mimeType: 'audio/wav'
           };
           this.recording = false;
+          this.timestamp = [];
           this.callbacks = {
               getBuffer: [],
-              exportWAV: []
+              exportWAV: [],
+              timestamp: [],
           };
   
           Object.assign(this.config, cfg);
@@ -97,8 +99,19 @@
                       case 'clear':
                           clear();
                           break;
+                    case 'timestamp':
+                          handleTimestamp(e.data.data);
+                          break;
                   }
               };
+
+              function sendTimestamp() {
+                self.postMessage({ command: 'timestamp', data: Date.now() });
+            }
+
+            function handleTimestamp(timestamps) {
+                recorderInstance.timestamp.push(timestamps);
+            }
   
               function init(config) {
                   sampleRate = config.sampleRate;
@@ -109,6 +122,7 @@
               function record(inputBuffer) {
                   for (var channel = 0; channel < numChannels; channel++) {
                       recBuffers[channel].push(inputBuffer[channel]);
+                      sendTimestamp();
                   }
                   recLength += inputBuffer[0].length;
               }
@@ -234,10 +248,14 @@
           });
   
           this.worker.onmessage = function (e) {
+            if (e.data.command === 'timestamp') {
+                _this.timestamp.push(e.data.data);
+            } else {
               var cb = _this.callbacks[e.data.command].pop();
               if (typeof cb == 'function') {
                   cb(e.data.data);
               }
+            }
           };
       }
   
@@ -250,6 +268,7 @@
           key: 'stop',
           value: function stop() {
               this.recording = false;
+              return this.timestamp;
           }
       }, {
           key: 'clear',
